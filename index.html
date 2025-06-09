@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Next-Level Animated GitHub Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <!-- AOS (Animate On Scroll) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Orbitron:900|Montserrat:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body>
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+  <!-- Navigation -->
+  <nav id="navbar" class="navbar">
+    <div class="nav-logo">AnimatedPage</div>
+    <ul class="nav-links">
+      <li><a href="#hero" class="nav-link">Home</a></li>
+      <li><a href="#features" class="nav-link">Features</a></li>
+      <li><a href="#stats" class="nav-link">Stats</a></li>
+      <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <div class="nav-toggle" id="navToggle">&#9776;</div>
+  </nav>
+  <!-- Hero Section -->
+  <section id="hero" class="hero-section">
+    <div class="hero-bg">
+      <svg id="morphingBlob" width="500" height="500" viewBox="0 0 500 500">
+        <path id="blobPath" d="M421,323Q367,396,272,406Q177,416,111,345Q45,274,80,177Q115,80,238,59Q361,38,413,139Q465,240,421,323Z"
+          fill="#fa8bff" opacity="0.7"/>
+      </svg>
+    </div>
+    <div class="hero-content animate__animated animate__fadeInDown">
+      <h1>⚡ The Ultimate Animated Experience ⚡</h1>
+      <p>Navigation, Morphing Blobs, Animated Stats, and More!</p>
+      <a href="#features" class="hero-btn animate__animated animate__tada animate__delay-2s">See Features</a>
+    </div>
+  </section>
+  <!-- Features Section -->
+  <section id="features" class="features-section" data-aos="fade-up">
+    <h2>Features</h2>
+    <div class="features-cards">
+      <div class="card" data-aos="zoom-in" data-aos-delay="100">
+        <h3>Parallax Animations</h3>
+        <p>Sections move with depth as you scroll</p>
+      </div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="200">
+        <h3>Morphing SVG Blob</h3>
+        <p>Animated hero background with smooth morphing transitions</p>
+      </div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="300">
+        <h3>Interactive Navbar</h3>
+        <p>Sticky, animated, and mobile-friendly</p>
+      </div>
+      <div class="card" data-aos="zoom-in" data-aos-delay="400">
+        <h3>Animated Stats</h3>
+        <p>Counters that animate up as they enter view</p>
+      </div>
+    </div>
+  </section>
+  <!-- Stats Section -->
+  <section id="stats" class="stats-section" data-aos="fade-right">
+    <h2>Our Impact</h2>
+    <div class="stats-counters">
+      <div class="counter" data-count="3500">
+        <span class="count-num">0</span>
+        <p>Stars</p>
+      </div>
+      <div class="counter" data-count="1200">
+        <span class="count-num">0</span>
+        <p>Forks</p>
+      </div>
+      <div class="counter" data-count="99">
+        <span class="count-num">0</span>
+        <p>Contributors</p>
+      </div>
+    </div>
+  </section>
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials-section" data-aos="fade-left">
+    <h2>What Users Say</h2>
+    <div class="carousel">
+      <div class="testimonial active">
+        <p>“This is the coolest animated site I’ve seen on GitHub Pages!”</p>
+        <span>- User A</span>
+      </div>
+      <div class="testimonial">
+        <p>“Incredible animations and very professional design.”</p>
+        <span>- User B</span>
+      </div>
+      <div class="testimonial">
+        <p>“Makes my project stand out. Highly recommended!”</p>
+        <span>- User C</span>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" id="prevBtn">&lt;</button>
+      <button class="carousel-btn" id="nextBtn">&gt;</button>
+    </div>
+  </section>
+  <!-- Contact Section -->
+  <section id="contact" class="cta-section" data-aos="fade-up">
+    <h2>Ready to create your own?</h2>
+    <a href="https://github.com/AshwinIsHappy/indicheck-_hu" target="_blank" class="cta-btn">Get the Code</a>
+  </section>
+  <!-- Footer -->
+  <footer class="footer-section">
+    <p>Made with <span class="heart">❤</span> by <a href="https://github.com/AshwinIsHappy">AshwinIsHappy</a></p>
+  </footer>
+  <!-- JS Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
