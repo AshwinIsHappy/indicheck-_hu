@@ -25,16 +25,16 @@ window.addEventListener('scroll', () => {
 // Animate On Scroll
 AOS.init({ once: false, duration: 1100 });
 
-// Particles.js config
+// Particles.js config (chessboard-like colors)
 particlesJS("particles-js", {
   "particles": {
-    "number": { "value": 70, "density": { "enable": true, "value_area": 900 } },
-    "color": { "value": ["#fa8bff", "#2bd2ff", "#2bff88", "#fff"] },
+    "number": { "value": 60, "density": { "enable": true, "value_area": 900 } },
+    "color": { "value": ["#9cd67c", "#fffbe6", "#23281f", "#1a1e1a"] },
     "shape": { "type": "circle" },
-    "opacity": { "value": 0.5, "random": true },
+    "opacity": { "value": 0.45, "random": true },
     "size": { "value": 5, "random": true },
     "move": {
-      "enable": true, "speed": 2, "direction": "none",
+      "enable": true, "speed": 1.6, "direction": "none",
       "random": false, "straight": false, "out_mode": "bounce"
     }
   },
@@ -45,8 +45,8 @@ particlesJS("particles-js", {
       "onclick": { "enable": true, "mode": "push" }
     },
     "modes": {
-      "grab": { "distance": 140, "line_linked": { "opacity": 0.6 } },
-      "push": { "particles_nb": 4 }
+      "grab": { "distance": 120, "line_linked": { "opacity": 0.5 } },
+      "push": { "particles_nb": 3 }
     }
   },
   "retina_detect": true
