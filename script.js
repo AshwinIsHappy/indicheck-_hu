@@ -79,10 +79,31 @@ setInterval(() => {
 document.querySelectorAll('.card').forEach((card) => {
   card.addEventListener('mouseenter', () => {
     card.classList.add('animate__animated', 'animate__pulse');
+    anime({
+      targets: card,
+      scale: 1.09,
+      rotate: '1deg',
+      duration: 250,
+      easing: 'easeOutElastic(1, .6)'
+    });
   });
-  card.addEventListener('animationend', () => {
+  card.addEventListener('mouseleave', () => {
     card.classList.remove('animate__animated', 'animate__pulse');
+    anime({
+      targets: card,
+      scale: 1,
+      rotate: '0deg',
+      duration: 400,
+      easing: 'easeOutExpo'
+    });
   });
+  // Randomly sparkle cards
+  setInterval(() => {
+    if (Math.random() < 0.06) {
+      card.classList.add('animate__animated', 'animate__flash');
+      setTimeout(() => card.classList.remove('animate__animated', 'animate__flash'), 600);
+    }
+  }, 1200 + Math.random() * 1000);
 });
 
 // Animate counters with pop and color effect
@@ -124,9 +145,7 @@ function showTestimonial(idx) {
     t.classList.toggle('active', i === idx);
     if (i === idx) {
       t.classList.add('animate__animated', 'animate__fadeInUp');
-      t.addEventListener('animationend', () => {
-        t.classList.remove('animate__animated', 'animate__fadeInUp');
-      }, { once: true });
+      setTimeout(() => t.classList.remove('animate__animated', 'animate__fadeInUp'), 900);
     }
   });
 }
@@ -166,11 +185,11 @@ document.querySelectorAll('section').forEach((section, idx) => {
   section.style.setProperty('--animate-duration', '1.2s');
 });
 
-// Add more animated chess pieces to hero background
+// Add more animated chess pieces to hero background + floating effect
 document.addEventListener('DOMContentLoaded', () => {
   const heroBg = document.querySelector('.hero-bg');
   if (heroBg) {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       const piece = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       piece.setAttribute("class", "chess-piece extra-piece");
       piece.setAttribute("width", "120");
@@ -183,12 +202,12 @@ document.addEventListener('DOMContentLoaded', () => {
           <circle cx="30" cy="21" r="9" fill="#fffbe6" stroke="#333" stroke-width="2"/>
           <ellipse cx="30" cy="17" rx="4" ry="2" fill="#333"/>
         </g>`;
-      piece.style.left = `${40 + i * 15}%`;
-      piece.style.top = `${70 + i * 10}%`;
-      piece.style.opacity = 0.5 + i * 0.2;
-      piece.style.animation = `floatY ${2 + i}s ease-in-out infinite, swing ${2.2 + i * 0.7}s infinite alternate`;
+      piece.style.left = `${35 + i * 15}%`;
+      piece.style.top = `${62 + i * 10}%`;
+      piece.style.opacity = 0.6 + i * 0.18;
+      piece.style.animation = `floatY ${2 + i * 0.7}s ease-in-out infinite, swing ${2.2 + i * 0.7}s infinite alternate`;
       piece.style.position = "absolute";
-      piece.style.transform = `translate(-50%, -50%) scale(${0.7 + i * 0.3})`;
+      piece.style.transform = `translate(-50%, -50%) scale(${0.7 + i * 0.33})`;
       heroBg.appendChild(piece);
     }
   }
@@ -346,6 +365,17 @@ document.querySelectorAll('.card').forEach(card => {
     ripple.style.left = `${e.clientX - rect.left}px`;
     ripple.style.top = `${e.clientY - rect.top}px`;
     setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+// More section bounce on scroll
+window.addEventListener('scroll', () => {
+  document.querySelectorAll('section').forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top >= 0 && rect.bottom <= window.innerHeight + 50) {
+      section.classList.add('animate__animated', 'animate__bounceIn');
+      setTimeout(() => section.classList.remove('animate__animated', 'animate__bounceIn'), 800);
+    }
   });
 });
 
