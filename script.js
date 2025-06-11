@@ -75,8 +75,8 @@ setInterval(() => {
   });
 }, 2700);
 
-// --- Extra: Animate all cards on scroll in, plus hover bounce ---
-document.querySelectorAll('.card').forEach((card, i) => {
+// Animate all cards on hover with Animate.css
+document.querySelectorAll('.card').forEach((card) => {
   card.addEventListener('mouseenter', () => {
     card.classList.add('animate__animated', 'animate__pulse');
   });
@@ -85,7 +85,7 @@ document.querySelectorAll('.card').forEach((card, i) => {
   });
 });
 
-// --- Extra: Animate counters with pop and color effect ---
+// Animate counters with pop and color effect
 function animateCount(el, end) {
   let start = 0, duration = 1500, startTime = null;
   function update(ts) {
@@ -140,7 +140,7 @@ document.getElementById('prevBtn').onclick = () => {
 };
 showTestimonial(0);
 
-// --- Extra: Animate hero button on hover ---
+// Animate hero button on hover
 const heroBtn = document.querySelector('.hero-btn');
 if (heroBtn) {
   heroBtn.addEventListener('mouseenter', () => {
@@ -151,7 +151,7 @@ if (heroBtn) {
   });
 }
 
-// --- Extra: Animate nav logo with bounce on page load ---
+// Animate nav logo with bounce on page load
 const navLogo = document.querySelector('.nav-logo');
 if (navLogo) {
   navLogo.classList.add('animate__animated', 'animate__bounceInDown');
@@ -160,13 +160,13 @@ if (navLogo) {
   });
 }
 
-// --- Extra: Animate each section in with Animate.css ---
+// Animate each section in with Animate.css
 document.querySelectorAll('section').forEach((section, idx) => {
   section.classList.add('animate__animated', idx % 2 === 0 ? 'animate__fadeInUp' : 'animate__fadeInLeft');
   section.style.setProperty('--animate-duration', '1.2s');
 });
 
-// --- Extra: Add more animated chess pieces to hero background ---
+// Add more animated chess pieces to hero background
 document.addEventListener('DOMContentLoaded', () => {
   const heroBg = document.querySelector('.hero-bg');
   if (heroBg) {
@@ -192,4 +192,193 @@ document.addEventListener('DOMContentLoaded', () => {
       heroBg.appendChild(piece);
     }
   }
+
+  // === Animated Chessboard in Hero Section ===
+  // Create chessboard container
+  const chessboard = document.createElement('div');
+  chessboard.id = 'animated-chessboard';
+  chessboard.style.position = 'absolute';
+  chessboard.style.left = '50%';
+  chessboard.style.top = '55%';
+  chessboard.style.transform = 'translate(-50%, -50%)';
+  chessboard.style.zIndex = '0';
+  chessboard.style.width = '320px';
+  chessboard.style.height = '320px';
+  chessboard.style.display = 'grid';
+  chessboard.style.gridTemplate = 'repeat(8, 1fr) / repeat(8, 1fr)';
+  chessboard.style.boxShadow = '0 6px 32px #23281f33';
+  chessboard.style.opacity = 0.82;
+  chessboard.style.borderRadius = '1.2em';
+  chessboard.style.overflow = 'hidden';
+
+  // Add 64 squares
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const square = document.createElement('div');
+      square.className = 'chessboard-square';
+      square.style.background = (r + c) % 2 === 0 ? '#fffbe6' : '#9cd67c';
+      square.style.transition = 'background 0.6s, box-shadow 0.6s';
+      chessboard.appendChild(square);
+    }
+  }
+
+  // Place on the hero (behind content, above particles)
+  if (heroBg) heroBg.appendChild(chessboard);
+
+  // Animate chessboard: shimmering & random highlight
+  setInterval(() => {
+    document.querySelectorAll('.chessboard-square').forEach((sq, i) => {
+      if (Math.random() < 0.08) {
+        sq.style.boxShadow = '0 0 16px 6px #fffbe6cc';
+        sq.style.background = '#a3e635';
+        setTimeout(() => {
+          sq.style.boxShadow = '';
+          sq.style.background = (Math.floor(i / 8) + i % 8) % 2 === 0 ? '#fffbe6' : '#9cd67c';
+        }, 270 + Math.random() * 400);
+      }
+    });
+  }, 350);
+
+  // Animate chess piece SVG gliding over squares
+  const piece = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  piece.setAttribute('width', '38');
+  piece.setAttribute('height', '38');
+  piece.style.position = 'absolute';
+  piece.style.left = '0';
+  piece.style.top = '0';
+  piece.style.pointerEvents = 'none';
+  piece.innerHTML = `
+    <g>
+      <ellipse cx="19" cy="34" rx="13" ry="3" fill="#333"/>
+      <rect x="12" y="18" width="14" height="14" rx="2" fill="#fffbe6" stroke="#333" stroke-width="2"/>
+      <circle cx="19" cy="12" r="7" fill="#fffbe6" stroke="#333" stroke-width="2"/>
+      <ellipse cx="19" cy="9" rx="3" ry="1.2" fill="#333"/>
+    </g>
+  `;
+  chessboard.appendChild(piece);
+
+  let pathSquares = [
+    0, 9, 18, 27, 36, 45, 54, 63, 62, 53, 44, 35, 26, 17, 8, 1, 10, 19, 28, 37, 46, 55, 56, 47, 38, 29, 20, 11, 2, 3, 12, 21, 30, 39, 48, 57, 58, 49, 40, 31, 22, 13, 4, 5, 14, 23, 32, 41, 50, 59, 60, 51, 42, 33, 24, 15, 6, 7, 16, 25, 34, 43, 52, 61
+  ];
+  let moveIdx = 0;
+  function animatePiece() {
+    let idx = pathSquares[moveIdx % pathSquares.length];
+    let r = Math.floor(idx / 8), c = idx % 8;
+    piece.style.transition = 'left 0.55s cubic-bezier(.48,1.5,.5,1), top 0.55s cubic-bezier(.48,1.5,.5,1)';
+    piece.style.left = `${c * 40}px`;
+    piece.style.top = `${r * 40}px`;
+    moveIdx++;
+    setTimeout(animatePiece, 600);
+  }
+  animatePiece();
 });
+
+// CSS for Chessboard (inject into head)
+const chessboardCSS = `
+#animated-chessboard {
+  filter: drop-shadow(0 2px 14px #1a1e1a55);
+}
+.chessboard-square {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+#animated-chessboard svg {
+  z-index: 2;
+  filter: drop-shadow(0 1px 6px #23281f88);
+}
+`;
+const chessStyle = document.createElement('style');
+chessStyle.textContent = chessboardCSS;
+document.head.appendChild(chessStyle);
+
+// Animated Background Gradient for hero-section
+const heroSection = document.querySelector('.hero-section');
+if (heroSection) {
+  let deg = 45;
+  setInterval(() => {
+    deg = (deg + 1) % 360;
+    heroSection.style.background = `linear-gradient(${deg}deg, #23281f 0%, #9cd67c 33%, #fffbe6 66%, #23281f 100%)`;
+  }, 60);
+}
+
+// Sparkle Effect on Buttons
+function createSparkle(x, y, btn) {
+  const sparkle = document.createElement("span");
+  sparkle.className = "sparkle";
+  sparkle.style.left = `${x - btn.getBoundingClientRect().left}px`;
+  sparkle.style.top = `${y - btn.getBoundingClientRect().top}px`;
+  btn.appendChild(sparkle);
+  setTimeout(() => sparkle.remove(), 700);
+}
+document.querySelectorAll('a.cta-btn, .hero-btn').forEach(btn => {
+  btn.style.position = "relative";
+  btn.addEventListener('mouseenter', e => {
+    for (let i = 0; i < 7; i++) {
+      setTimeout(() => {
+        const angle = Math.random() * 2 * Math.PI;
+        const radius = 30 + Math.random() * 30;
+        const x = btn.offsetWidth / 2 + Math.cos(angle) * radius;
+        const y = btn.offsetHeight / 2 + Math.sin(angle) * radius;
+        createSparkle(x, y, btn);
+      }, i * 50);
+    }
+  });
+});
+
+// Parallax effect for hero background and floating chess pieces
+window.addEventListener('mousemove', e => {
+  const x = e.clientX / window.innerWidth - 0.5;
+  const y = e.clientY / window.innerHeight - 0.5;
+  document.querySelectorAll('.hero-bg, .chess-piece').forEach(el => {
+    el.style.transform = `translate(-50%, -44%) scale(1.05) translate(${x * 24}px, ${y * 18}px)`;
+  });
+});
+
+// Ripple Click Effect for Cards
+document.querySelectorAll('.card').forEach(card => {
+  card.style.overflow = "hidden";
+  card.addEventListener('click', function(e) {
+    const ripple = document.createElement("span");
+    ripple.className = "ripple";
+    this.appendChild(ripple);
+    const rect = this.getBoundingClientRect();
+    ripple.style.left = `${e.clientX - rect.left}px`;
+    ripple.style.top = `${e.clientY - rect.top}px`;
+    setTimeout(() => ripple.remove(), 600);
+  });
+});
+
+// CSS for Sparkle and Ripple Effects (injects into head)
+const extraCSS = `
+.sparkle {
+  position: absolute;
+  width: 10px; height: 10px;
+  background: radial-gradient(circle, #fffbe6 60%, #9cd67c 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.8;
+  animation: sparkle-fade 0.7s linear forwards;
+}
+@keyframes sparkle-fade {
+  0% { transform: scale(0.5); opacity: 0.8;}
+  70% { transform: scale(1.7); opacity: 1;}
+  100% { transform: scale(2.2); opacity: 0;}
+}
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(156,214,124,0.3);
+  width: 30px; height: 30px;
+  transform: scale(0);
+  animation: ripple-anim 0.6s linear forwards;
+  pointer-events: none;
+}
+@keyframes ripple-anim {
+  0% { transform: scale(0); opacity: 0.8;}
+  100% { transform: scale(8); opacity: 0;}
+}
+`;
+const style = document.createElement('style');
+style.textContent = extraCSS;
+document.head.appendChild(style);
